@@ -67,7 +67,7 @@ const Chess = () => {
         if (fromRow === toRow || fromCol === toCol) return true;
         break;
       case "bn":
-        if ((Math.abs(fromRow - toRow) === 2 && Math.abs(fromCol - toCol) === 1) || (Math.abs(fromRow - toRow) === 1 && Math.abs(fromCol - toCol) === 2)) return true;
+        if ((Math.abs(fromRow - toRow) === 2 && Math.abs(fromCol - toCol) === 1) || (Math.abs(fromRow - toRow) === 1 && Math.abs(fromCol - toCol) === 2)) return targetPiece === "" || targetPiece[0] !== piece[0];
         break;
       case "bb":
         if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return true;
