@@ -64,17 +64,62 @@ const Chess = () => {
         if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow - 1 && targetPiece[0] === "b") return true;
         break;
       case "br":
-        if (fromRow === toRow || fromCol === toCol) return true;
+        if (fromRow === toRow) {
+          for (let i = Math.min(fromCol, toCol) + 1; i < Math.max(fromCol, toCol); i++) {
+            if (board[fromRow][i] !== "") return false;
+          }
+          return true;
+        }
+        if (fromCol === toCol) {
+          for (let i = Math.min(fromRow, toRow) + 1; i < Math.max(fromRow, toRow); i++) {
+            if (board[i][fromCol] !== "") return false;
+          }
+          return true;
+        }
         break;
       case "bn":
         if ((Math.abs(fromRow - toRow) === 2 && Math.abs(fromCol - toCol) === 1) || (Math.abs(fromRow - toRow) === 1 && Math.abs(fromCol - toCol) === 2)) return targetPiece === "" || (targetPiece[0] !== piece[0] && piece[0] === "w");
         break;
       case "bb":
-        if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return true;
+        if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) {
+          const rowStep = fromRow < toRow ? 1 : -1;
+          const colStep = fromCol < toCol ? 1 : -1;
+          let checkRow = fromRow + rowStep;
+          let checkCol = fromCol + colStep;
+          while (checkRow !== toRow) {
+            if (board[checkRow][checkCol] !== "") return false;
+            checkRow += rowStep;
+            checkCol += colStep;
+          }
+          return true;
+        }
         break;
       case "bq":
       case "wq":
-        if (fromRow === toRow || fromCol === toCol || Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return true;
+        if (fromRow === toRow) {
+          for (let i = Math.min(fromCol, toCol) + 1; i < Math.max(fromCol, toCol); i++) {
+            if (board[fromRow][i] !== "") return false;
+          }
+          return true;
+        }
+        if (fromCol === toCol) {
+          for (let i = Math.min(fromRow, toRow) + 1; i < Math.max(fromRow, toRow); i++) {
+            if (board[i][fromCol] !== "") return false;
+          }
+          return true;
+        }
+        if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) {
+          const rowStep = fromRow < toRow ? 1 : -1;
+          const colStep = fromCol < toCol ? 1 : -1;
+          let checkRow = fromRow + rowStep;
+          let checkCol = fromCol + colStep;
+          while (checkRow !== toRow) {
+            if (board[checkRow][checkCol] !== "") return false;
+            checkRow += rowStep;
+            checkCol += colStep;
+          }
+          return true;
+        }
         break;
       case "bk":
       case "wk":
