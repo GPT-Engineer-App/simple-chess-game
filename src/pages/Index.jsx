@@ -63,8 +63,23 @@ const Chess = () => {
         if (fromCol === toCol && (toRow === fromRow - 1 || (fromRow === 6 && toRow === 4 && board[5][fromCol] === "")) && targetPiece === "") return true;
         if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow - 1 && targetPiece[0] === "b") return true;
         break;
-      default:
-        return false;
+      case "br":
+        if (fromRow === toRow || fromCol === toCol) return true;
+        break;
+      case "bn":
+        if ((Math.abs(fromRow - toRow) === 2 && Math.abs(fromCol - toCol) === 1) || (Math.abs(fromRow - toRow) === 1 && Math.abs(fromCol - toCol) === 2)) return true;
+        break;
+      case "bb":
+        if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return true;
+        break;
+      case "bq":
+      case "wq":
+        if (fromRow === toRow || fromCol === toCol || Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return true;
+        break;
+      case "bk":
+      case "wk":
+        if (Math.abs(fromRow - toRow) <= 1 && Math.abs(fromCol - toCol) <= 1) return true;
+        break;
     }
     return false;
   };
