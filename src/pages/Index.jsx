@@ -49,8 +49,28 @@ const Chess = () => {
 
   const [selectedPiece, setSelectedPiece] = useState(null);
 
+  const isValidMove = (fromRow, fromCol, toRow, toCol) => {
+    const piece = board[fromRow][fromCol];
+    const targetPiece = board[toRow][toCol];
+    if (piece[0] === targetPiece[0]) return false;
+
+    switch (piece) {
+      case "bp":
+        if (fromCol === toCol && (toRow === fromRow + 1 || (fromRow === 1 && toRow === 3 && board[2][fromCol] === "")) && targetPiece === "") return true;
+        if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow + 1 && targetPiece[0] === "w") return true;
+        break;
+      case "wp":
+        if (fromCol === toCol && (toRow === fromRow - 1 || (fromRow === 6 && toRow === 4 && board[5][fromCol] === "")) && targetPiece === "") return true;
+        if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow - 1 && targetPiece[0] === "b") return true;
+        break;
+      default:
+        return false;
+    }
+    return false;
+  };
+
   const handleMove = (rowIndex, colIndex) => {
-    if (selectedPiece) {
+    if (selectedPiece && isValidMove(selectedPiece[0], selectedPiece[1], rowIndex, colIndex)) {
       const newBoard = [...board];
       const [fromRow, fromCol] = selectedPiece;
       newBoard[rowIndex][colIndex] = newBoard[fromRow][fromCol];
