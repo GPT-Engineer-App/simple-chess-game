@@ -47,12 +47,20 @@ const Chess = () => {
     }
   };
 
-  const handleMove = (fromRow, fromCol, toRow, toCol) => {
-    const newBoard = [...board];
-    newBoard[toRow][toCol] = newBoard[fromRow][fromCol];
-    newBoard[fromRow][fromCol] = "";
-    setBoard(newBoard);
-    setPlayer(player === "white" ? "black" : "white");
+  const [selectedPiece, setSelectedPiece] = useState(null);
+
+  const handleMove = (rowIndex, colIndex) => {
+    if (selectedPiece) {
+      const newBoard = [...board];
+      const [fromRow, fromCol] = selectedPiece;
+      newBoard[rowIndex][colIndex] = newBoard[fromRow][fromCol];
+      newBoard[fromRow][fromCol] = "";
+      setBoard(newBoard);
+      setPlayer(player === "white" ? "black" : "white");
+      setSelectedPiece(null);
+    } else if (board[rowIndex][colIndex]) {
+      setSelectedPiece([rowIndex, colIndex]);
+    }
   };
 
   return (
