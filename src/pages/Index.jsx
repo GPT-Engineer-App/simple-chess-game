@@ -70,7 +70,9 @@ const Chess = () => {
   };
 
   const handleMove = (rowIndex, colIndex) => {
-    if (selectedPiece && isValidMove(selectedPiece[0], selectedPiece[1], rowIndex, colIndex)) {
+    if (selectedPiece && selectedPiece[0] === rowIndex && selectedPiece[1] === colIndex) {
+      setSelectedPiece(null);
+    } else if (selectedPiece && isValidMove(selectedPiece[0], selectedPiece[1], rowIndex, colIndex) && board[rowIndex][colIndex][0] === (player === "white" ? "b" : "w")) {
       const newBoard = [...board];
       const [fromRow, fromCol] = selectedPiece;
       newBoard[rowIndex][colIndex] = newBoard[fromRow][fromCol];
@@ -78,7 +80,7 @@ const Chess = () => {
       setBoard(newBoard);
       setPlayer(player === "white" ? "black" : "white");
       setSelectedPiece(null);
-    } else if (board[rowIndex][colIndex]) {
+    } else if (board[rowIndex][colIndex] && board[rowIndex][colIndex][0] === (player === "white" ? "w" : "b")) {
       setSelectedPiece([rowIndex, colIndex]);
     }
   };
@@ -91,7 +93,7 @@ const Chess = () => {
       <Grid templateColumns="repeat(8, 1fr)" gap={0} width="400px" height="400px" templateRows="repeat(8, 1fr)">
         {board.map((row, rowIndex) =>
           row.map((col, colIndex) => (
-            <GridItem key={`${rowIndex}-${colIndex}`} bg={(rowIndex + colIndex) % 2 === 0 ? "gray.300" : "gray.400"} display="flex" justifyContent="center" alignItems="center" fontSize="2rem" width="50px" height="50px" onClick={() => handleMove(rowIndex, colIndex)}>
+            <GridItem key={`${rowIndex}-${colIndex}`} bg={selectedPiece && selectedPiece[0] === rowIndex && selectedPiece[1] === colIndex ? "yellow.300" : (rowIndex + colIndex) % 2 === 0 ? "gray.300" : "gray.400"} display="flex" justifyContent="center" alignItems="center" fontSize="2rem" width="50px" height="50px" onClick={() => handleMove(rowIndex, colIndex)}>
               {getPiece(col)}
             </GridItem>
           )),
