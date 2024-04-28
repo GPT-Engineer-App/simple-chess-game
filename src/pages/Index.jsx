@@ -72,7 +72,7 @@ const Chess = () => {
   const handleMove = (rowIndex, colIndex) => {
     if (selectedPiece && selectedPiece[0] === rowIndex && selectedPiece[1] === colIndex) {
       setSelectedPiece(null);
-    } else if (selectedPiece && isValidMove(selectedPiece[0], selectedPiece[1], rowIndex, colIndex) && board[rowIndex][colIndex][0] === (player === "white" ? "b" : "w")) {
+    } else if (selectedPiece && isValidMove(selectedPiece[0], selectedPiece[1], rowIndex, colIndex)) {
       const newBoard = [...board];
       const [fromRow, fromCol] = selectedPiece;
       newBoard[rowIndex][colIndex] = newBoard[fromRow][fromCol];
