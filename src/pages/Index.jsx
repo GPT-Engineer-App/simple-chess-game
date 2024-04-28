@@ -64,6 +64,7 @@ const Chess = () => {
         if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow - 1 && targetPiece[0] === "b") return true;
         break;
       case "br":
+      case "wr":
         if (fromRow === toRow) {
           for (let i = Math.min(fromCol, toCol) + 1; i < Math.max(fromCol, toCol); i++) {
             if (board[fromRow][i] !== "") return false;
@@ -78,9 +79,11 @@ const Chess = () => {
         }
         break;
       case "bn":
+      case "wn":
         if ((Math.abs(fromRow - toRow) === 2 && Math.abs(fromCol - toCol) === 1) || (Math.abs(fromRow - toRow) === 1 && Math.abs(fromCol - toCol) === 2)) return targetPiece === "" || targetPiece[0] !== piece[0];
         break;
       case "bb":
+      case "wb":
         if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) {
           const rowStep = fromRow < toRow ? 1 : -1;
           const colStep = fromCol < toCol ? 1 : -1;
