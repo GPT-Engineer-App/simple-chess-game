@@ -68,10 +68,10 @@ const Chess = () => {
       <Text fontSize="2xl" mb={4}>
         Chess Game
       </Text>
-      <Grid templateColumns="repeat(8, 1fr)" gap={0} width="400px" height="400px">
+      <Grid templateColumns="repeat(8, 1fr)" gap={0} width="400px" height="400px" templateRows="repeat(8, 1fr)">
         {board.map((row, rowIndex) =>
           row.map((col, colIndex) => (
-            <GridItem key={`${rowIndex}-${colIndex}`} bg={(rowIndex + colIndex) % 2 === 0 ? "gray.100" : "gray.400"} display="flex" justifyContent="center" alignItems="center" fontSize="2rem" onClick={() => handleMove(rowIndex, colIndex)}>
+            <GridItem key={`${rowIndex}-${colIndex}`} bg={(rowIndex + colIndex) % 2 === 0 ? "gray.100" : "gray.400"} display="flex" justifyContent="center" alignItems="center" fontSize="2rem" width="50px" height="50px" onClick={() => handleMove(rowIndex, colIndex)}>
               {getPiece(col)}
             </GridItem>
           )),
